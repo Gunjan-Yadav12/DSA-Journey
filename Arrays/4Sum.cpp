@@ -1,0 +1,77 @@
+/*
+Problem: 4Sum
+Platform: LeetCode
+
+Approach:
+1. Sort the array.
+2. Fix the first element (i).
+3. Fix the second element (j).
+4. Use two pointers (left and right) to find the remaining two elements.
+5. Skip duplicates to avoid repeated quadruplets.
+
+Time Complexity: O(n³)
+Space Complexity: O(1) (excluding output)
+*/
+
+class Solution {
+public:
+    vector<vector<int>> fourSum(vector<int>& nums, int target) {
+        int n = nums.size();
+        vector<vector<int>> ans;
+
+        sort(nums.begin(), nums.end());
+
+        for (int i = 0; i < n; i++) {
+
+            if (i > 0 && nums[i] == nums[i - 1])
+                continue;
+
+            for (int j = i + 1; j < n; j++) {
+
+                if (j > i + 1 && nums[j] == nums[j - 1])
+                    continue;
+
+                int left = j + 1;
+                int right = n - 1;
+
+                while (left < right) {
+
+                    long long sum =
+                        (long long)nums[i] +
+                        nums[j] +
+                        nums[left] +
+                        nums[right];
+
+                    if (sum < target)
+                        left++;
+
+                    else if (sum > target)
+                        right--;
+
+                    else {
+
+                        ans.push_back({
+                            nums[i],
+                            nums[j],
+                            nums[left],
+                            nums[right]
+                        });
+
+                        left++;
+                        right--;
+
+                        while (left < right &&
+                               nums[left] == nums[left - 1])
+                            left++;
+
+                        while (left < right &&
+                               nums[right] == nums[right + 1])
+                            right--;
+                    }
+                }
+            }
+        }
+
+        return ans;
+    }
+};
