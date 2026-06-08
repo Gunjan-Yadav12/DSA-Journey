@@ -1,6 +1,7 @@
 /*
 Problem: 3Sum
 Platform: LeetCode
+Problem Number: 15
 
 Approach:
 1. Sort the array.
@@ -9,7 +10,7 @@ Approach:
 4. Skip duplicates.
 
 Time Complexity: O(n²)
-Space Complexity: O(1) (excluding output)
+Space Complexity: O(n) 
 */
 
 class Solution {

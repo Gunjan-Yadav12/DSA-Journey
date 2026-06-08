@@ -1,7 +1,7 @@
 /*
 Problem: 4Sum
 Platform: LeetCode
-
+Problem Number: 18
 Approach:
 1. Sort the array.
 2. Fix the first element (i).
@@ -10,7 +10,7 @@ Approach:
 5. Skip duplicates to avoid repeated quadruplets.
 
 Time Complexity: O(n³)
-Space Complexity: O(1) (excluding output)
+Space Complexity: O(n) 
 */
 
 class Solution {
