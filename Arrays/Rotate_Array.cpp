@@ -1,6 +1,7 @@
 /*
 Problem: Rotate Array
 Platform: LeetCode
+Problem number: 189
 
 Approach:
 1. Calculate k % n because rotating n times

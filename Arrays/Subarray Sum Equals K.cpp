@@ -4,40 +4,51 @@ Platform: LeetCode
 
 Approach:
 1. Maintain a running prefix sum while traversing the array.
-2. At each index, check if there exists a previous prefix sum
-   equal to (currentPrefix - k).
-3. If such a prefix sum exists, then the elements between
-   those two positions form a subarray with sum k.
-4. Store the frequency of every prefix sum in a hashmap.
-5. Add the frequency of (currentPrefix - k) to the answer.
+2. For every prefix sum, calculate:
+      prefixSum - k
+3. If this value has appeared before,
+   then a subarray with sum k exists.
+4. Store the frequency of every prefix sum
+   in a map.
+5. Add the frequency of (prefixSum - k)
+   to the answer.
 
 Key Idea:
-If:
+Suppose:
 
-currentPrefix - previousPrefix = k
+Current Prefix Sum = P
+Previous Prefix Sum = X
 
-then:
+If the subarray between them has sum k:
 
-previousPrefix = currentPrefix - k
+P - X = k
+
+Therefore:
+
+X = P - k
 
 So whenever we find a previously seen
-(currentPrefix - k), we have found a valid subarray.
+(P - k), we have found a valid subarray.
 
 Example:
 
-nums = [1, 1, 1]
-k = 2
+nums = [1, 2, 3]
+k = 3
 
 Prefix Sums:
-1, 2, 3
-
-At prefix = 2:
-Need (2 - 2) = 0
-Found once → count = 1
+1, 3, 6
 
 At prefix = 3:
-Need (3 - 2) = 1
+Need (3 - 3) = 0
+Found once → count = 1
+
+At prefix = 6:
+Need (6 - 3) = 3
 Found once → count = 2
+
+Subarrays:
+[1,2]
+[3]
 
 Answer = 2
 
@@ -48,35 +59,41 @@ Hash Map
 Time Complexity: O(n)
 Space Complexity: O(n)
 
+Important:
+mpp[0] = 1
+
+This represents a prefix sum of 0
+before the array starts.
+
+It allows us to count subarrays
+that begin from index 0.
+
 Revision:
-prefix += nums[i]
+prefixSum += nums[i]
 
 Need:
-prefix - k
+prefixSum - k
 
-If found in map:
+If found:
 count += frequency
 
 Store:
-mp[prefix]++
+mpp[prefixSum]++
 */
 
 class Solution {
 public:
     int subarraySum(vector<int>& nums, int k) {
-        unordered_map<int , int> mp;
-        mp[0] = 1;
-
-        int prefix = 0;
+        map<int, int>mpp;
+        int prefixSum = 0;
         int count = 0;
+        mpp[0] = 1;
 
-        for(int nums:nums){
-            prefix += nums;
-
-            if(mp.find(prefix - k) != mp.end ()){
-                count += mp[prefix - k];
-            }
-            mp[prefix]++;
+        for(int i = 0; i < nums.size(); i++){
+            prefixSum += nums[i];
+            int remove = prefixSum - k;
+            count += mpp[remove];
+            mpp[prefixSum] += 1;
         }
         return count;
     }
