@@ -1,6 +1,7 @@
 /*
 Problem: Container With Most Water
 Platform: LeetCode
+problem number: 11
 
 Approach:
 1. Place two pointers:
