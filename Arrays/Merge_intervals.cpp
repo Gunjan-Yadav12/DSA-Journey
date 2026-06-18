@@ -1,6 +1,7 @@
 /*
 Problem: Merge Intervals
 Platform: LeetCode
+problem number: 56
 
 Approach:
 1. Sort all intervals based on their start time.
