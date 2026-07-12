@@ -1,29 +1,70 @@
 /*
 Pattern:
 Binary Search
-Lower Bound
+
+Floor:
+
+Find the largest element
+
+<= x
 
 Initialize:
 
 low = 0
 high = n - 1
-ans = n
+ans = -1
 
 While:
 
 low <= high
 
-Find middle:
+mid = low + (high - low) / 2
+
+If:
+
+nums[mid] <= x
+
+Store possible floor:
+
+ans = nums[mid]
+
+Search Right Half:
+
+low = mid + 1
+
+Else:
+
+Search Left Half:
+
+high = mid - 1
+
+--------------------------------
+
+Ceil:
+
+Find the smallest element
+
+>= x
+
+Initialize:
+
+low = 0
+high = n - 1
+ans = -1
+
+While:
+
+low <= high
 
 mid = low + (high - low) / 2
 
 If:
 
-nums[mid] >= target
+nums[mid] >= x
 
-Store possible answer:
+Store possible ceil:
 
-ans = mid
+ans = nums[mid]
 
 Search Left Half:
 
@@ -37,29 +78,27 @@ low = mid + 1
 
 Answer:
 
-ans
+{Floor, Ceil}
 
 Why does it work?
 
-We are looking for the
-first position where
+Floor:
 
-nums[index] >= target.
+Whenever an element is
+<= x, it can be the answer.
 
-If target exists,
-its index is returned.
+But there might be a larger
+valid element on the right,
+so continue searching right.
 
-If target doesn't exist,
-the first element greater
-than target becomes the
-correct insertion position.
+Ceil:
 
-If every element is
-smaller than target,
+Whenever an element is
+>= x, it can be the answer.
 
-ans remains n,
-
-meaning insert at the end.
+But there might be a smaller
+valid element on the left,
+so continue searching left.
 
 Time: O(log n)
 
